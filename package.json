@@ -12,7 +12,6 @@
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",
         "axios": "^0.18",
-        "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
         "laravel-mix": "^4.0",
         "react": "^16.8.3",
@@ -22,6 +21,8 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
-        "babel-loader": "^8.0.5"
+        "babel-loader": "^8.0.5",
+        "bootstrap-sass": "^3.4.1",
+        "react-bootstrap": "^1.0.0-beta.5"
     }
 }

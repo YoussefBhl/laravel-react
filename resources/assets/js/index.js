@@ -1,22 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import Footer from './common/Footer';
+import TasksList from './pages/TasksList';
 
-export default class App extends Component {
+export default class App extends React.Component {
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8 col-md-offset-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">Example Component</div>
+            <div>
+                <TasksList />
+                <Footer />
+            </div >
 
-                            <div className="panel-body">
-                                I'm an example component!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         );
     }
 }
