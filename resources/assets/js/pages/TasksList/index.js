@@ -34,7 +34,8 @@ export default class TasksList extends React.Component {
                 {tasks.map((el, ind) =>
                     <div key={ind} className="panel panel-default">
                         <div className="panel-heading">{el.title}</div>
-                        <div className="panel-body">{el.body}</div>
+                        <div className="panel-body">{el.body.substring(1, 120)}</div>
+                        <div className="panel-footer">{el.created}</div>
                     </div>
                 )
                 }
