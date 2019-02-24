@@ -3,17 +3,13 @@ import { tasksListConstants } from '../constants/tasksList.constants';
 export function tasksList(state = {}, action) {
     switch (action.type) {
     case tasksListConstants.FETCH_TASKSLIST_REQUEST:
-        return {
-        tasksList: {}
-        };
+        return {}
     case tasksListConstants.FETCH_TASKSLIST_SUCCESS:
         return {
-            tasksList: action.tasksList
+            tasks: action.tasks
         };
     case tasksListConstants.FETCH_TASKSLIST_FAILURE:
-        return {
-            tasksList: {}
-            };
+        return {}
     default:
         return state
     }
