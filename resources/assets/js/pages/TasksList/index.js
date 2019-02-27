@@ -1,17 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { tasksListActions } from '../../actions/tasksList.actions';
+import Pagination from './Pagination';
 
 class TasksList extends React.Component {
     componentWillMount() {
         const { dispatch } = this.props;
-        dispatch(tasksListActions.fetch())
+        dispatch(tasksListActions.fetch(null));
+    }
+    handleClickPage = (page_url) => {
+        const { dispatch } = this.props;
+        dispatch(tasksListActions.fetch(page_url));
     }
     render() {
-        if (this.props.tasks)
+        const tasks = this.props.tasks;
+        if (tasks)
             return (
                 <div className="container">
-                    {this.props.tasks.map((el, ind) =>
+                    {tasks.data.map((el, ind) =>
                         <div key={ind} className="panel panel-default">
                             <div className="panel-heading">{el.title}</div>
                             <div className="panel-body">{el.body.substring(1, 120)}</div>
@@ -19,8 +25,10 @@ class TasksList extends React.Component {
                         </div>
                     )
                     }
+                    <Pagination prev={tasks.prev_page_url}
+                        next={tasks.next_page_url}
+                        handleClick={this.handleClickPage} />
                 </div>
-
             );
         return null;
     }

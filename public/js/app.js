@@ -49142,9 +49142,19 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tasksListActions", function() { return tasksListActions; });
 /* harmony import */ var _constants_tasksList_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/tasksList.constants */ "./resources/assets/js/constants/tasksList.constants.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
-var fetch = function fetch() {
+var apiBaseUrl = "http://127.0.0.1:8000";
+
+var fetch = function fetch(page_url) {
+  var request = function request() {
+    return {
+      type: _constants_tasksList_constants__WEBPACK_IMPORTED_MODULE_0__["tasksListConstants"].FETCH_TASKSLIST_REQUEST
+    };
+  };
+
   var success = function success(tasks) {
     return {
       type: _constants_tasksList_constants__WEBPACK_IMPORTED_MODULE_0__["tasksListConstants"].FETCH_TASKSLIST_SUCCESS,
@@ -49152,30 +49162,22 @@ var fetch = function fetch() {
     };
   };
 
+  var failure = function failure() {
+    return {
+      type: _constants_tasksList_constants__WEBPACK_IMPORTED_MODULE_0__["tasksListConstants"].FETCH_TASKSLIST_FAILURE
+    };
+  };
+
   return function (dispatch) {
-    var tasks = [{
-      title: "pretium aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus elit pede, malesuada vel, venenatis vel, faucibus id, libero. Donec consectetuer mauris id sapien. Cras dolor",
-      body: "ipsum non arcu. Vivamus sit amet risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis non, cursus non, egestas a, dui. Cras pellentesque. Sed dictum. Proin eget odio. Aliquam vulputate ullamcorper magna. Sed eu eros. Nam consequat dolor vitae dolor. Donec fringilla. Donec feugiat metus sit amet ante. Vivamus non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim. Suspendisse aliquet, sem ut cursus luctus, ipsum leo elementum sem, vitae aliquam eros turpis non enim. Mauris quis turpis vitae purus gravida sagittis. Duis gravida. Praesent eu nulla at sem molestie sodales. Mauris blandit enim consequat purus. Maecenas libero est, congue a, aliquet vel, vulputate eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id risus quis diam luctus lobortis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris ut quam vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper, nisl arcu iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus pede, ultrices a, auctor non, feugiat nec, diam. Duis mi enim, condimentum eget, volutpat ornare, facilisis eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc sed pede. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel arcu eu odio tristique pharetra. Quisque ac libero nec ligula consectetuer rhoncus. Nullam velit dui, semper et, lacinia vitae, sodales at, velit. Pellentesque ultricies dignissim lacus. Aliquam rutrum lorem",
-      created: "2018-07-10 12:14:13",
-      modified: "2019-02-22 19:53:44",
-      start: "2018-12-17 10:09:48",
-      end: "2019-12-29 04:04:19"
-    }, {
-      title: "diam dictum sapien. Aenean massa. Integer",
-      body: "vulputate eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum",
-      created: "2018-04-17 16:08:12",
-      modified: "2019-12-27 18:55:45",
-      start: "2018-03-03 18:43:58",
-      end: "2019-02-03 07:08:09"
-    }, {
-      title: "mauris eu elit.",
-      body: "tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet magna a neque. Nullam ut nisi a odio semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio. Nam interdum enim non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy ipsum non arcu. Vivamus sit amet risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis non, cursus non, egestas a, dui. Cras pellentesque. Sed dictum. Proin eget odio. Aliquam vulputate ullamcorper magna. Sed eu eros. Nam consequat dolor vitae dolor. Donec fringilla. Donec feugiat metus sit amet ante. Vivamus non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim. Suspendisse aliquet, sem ut cursus luctus, ipsum leo elementum sem, vitae aliquam eros turpis non enim. Mauris quis turpis vitae purus gravida sagittis. Duis gravida. Praesent eu nulla at sem molestie sodales. Mauris blandit enim consequat purus. Maecenas libero est, congue a, aliquet vel, vulputate eu, odio. Phasellus at augue id ante",
-      created: "2019-07-25 05:40:06",
-      modified: "2019-09-29 19:07:55",
-      start: "2019-09-04 22:54:30",
-      end: "2018-03-04 18:12:08"
-    }];
-    dispatch(success(tasks)); //history.push('/');
+    request();
+    if (!page_url) page_url = apiBaseUrl + '/tasks';
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(page_url).then(function (response) {
+      console.log(response);
+      dispatch(success(response.data));
+    }, function (error) {
+      console.log(error);
+      dispatch(failure(error));
+    });
   };
 };
 
@@ -49595,6 +49597,71 @@ if (document.getElementById('app')) {
 
 /***/ }),
 
+/***/ "./resources/assets/js/pages/TasksList/PageBtn.js":
+/*!********************************************************!*\
+  !*** ./resources/assets/js/pages/TasksList/PageBtn.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PageBtn; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function PageBtn(props) {
+  if (props.display) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: props.className
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    className: "btn",
+    onClick: function onClick() {
+      return props.handleClick(props.display);
+    }
+  }, props.text));
+  return null;
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/pages/TasksList/Pagination.js":
+/*!***********************************************************!*\
+  !*** ./resources/assets/js/pages/TasksList/Pagination.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Pagination; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PageBtn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PageBtn */ "./resources/assets/js/pages/TasksList/PageBtn.js");
+
+
+function Pagination(props) {
+  var nextClass = "col-md-2 ";
+  if (!props.prev) nextClass += "col-md-offset-10";else nextClass += "col-md-offset-8";
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PageBtn__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    display: props.prev,
+    className: "col-md-2",
+    text: "\u276E Prev",
+    handleClick: props.handleClick
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PageBtn__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    display: props.next,
+    className: nextClass,
+    text: "Next \u276F",
+    handleClick: props.handleClick
+  })));
+}
+
+/***/ }),
+
 /***/ "./resources/assets/js/pages/TasksList/index.js":
 /*!******************************************************!*\
   !*** ./resources/assets/js/pages/TasksList/index.js ***!
@@ -49608,6 +49675,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_tasksList_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/tasksList.actions */ "./resources/assets/js/actions/tasksList.actions.js");
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Pagination */ "./resources/assets/js/pages/TasksList/Pagination.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49618,13 +49686,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -49636,23 +49707,39 @@ function (_React$Component) {
   _inherits(TasksList, _React$Component);
 
   function TasksList() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     _classCallCheck(this, TasksList);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TasksList).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TasksList)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "handleClickPage", function (page_url) {
+      var dispatch = _this.props.dispatch;
+      dispatch(_actions_tasksList_actions__WEBPACK_IMPORTED_MODULE_2__["tasksListActions"].fetch(page_url));
+    });
+
+    return _this;
   }
 
   _createClass(TasksList, [{
     key: "componentWillMount",
     value: function componentWillMount() {
       var dispatch = this.props.dispatch;
-      dispatch(_actions_tasksList_actions__WEBPACK_IMPORTED_MODULE_2__["tasksListActions"].fetch());
+      dispatch(_actions_tasksList_actions__WEBPACK_IMPORTED_MODULE_2__["tasksListActions"].fetch(null));
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.props.tasks) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      var tasks = this.props.tasks;
+      if (tasks) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
-      }, this.props.tasks.map(function (el, ind) {
+      }, tasks.data.map(function (el, ind) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: ind,
           className: "panel panel-default"
@@ -49663,6 +49750,10 @@ function (_React$Component) {
         }, el.body.substring(1, 120)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "panel-footer"
         }, el.created));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        prev: tasks.prev_page_url,
+        next: tasks.next_page_url,
+        handleClick: this.handleClickPage
       }));
       return null;
     }
